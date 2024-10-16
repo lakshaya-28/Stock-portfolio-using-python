@@ -1,0 +1,46 @@
+historical_prices = {
+        print(f"{stock} not found in the portfolio.")
+
+def main():
+    while True:
+        print("\n1. Choose a company to invest in")
+        print("2. Calculate portfolio values and returns")
+        print("3. Add a new stock to the portfolio")
+        print("4. Remove a stock from the portfolio")
+        print("5. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            add_stock(portfolio, historical_prices)
+        elif choice == '2':
+            if not portfolio:
+                print("Portfolio is empty. Add stocks to the portfolio first.")
+                continue
+
+            total_values = []
+            for day in range(len(historical_prices['AAPL'])):
+                total_value = calculate_total_value(portfolio, historical_prices, day)
+                total_values.append(total_value)
+
+            daily_returns = calculate_daily_returns(total_values)
+            cumulative_return = (total_values[-1] / total_values[0]) - 1
+
+            print(f"\nTotal Portfolio Value on Day 1: ${total_values[0]:.2f}")
+            print(f"Total Portfolio Value on Day {len(total_values)}: ${total_values[-1]:.2f}")
+            print(f"Cumulative Return: {cumulative_return:.2%}")
+
+            print("\nDaily Returns:")
+            for i, daily_return in enumerate(daily_returns, start=1):
+                print(f"Day {i+1}: {daily_return:.2%}")
+        elif choice == '3':
+            add_stock(portfolio, historical_prices)
+        elif choice == '4':
+            remove_stock(portfolio)
+        elif choice == '5':
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
